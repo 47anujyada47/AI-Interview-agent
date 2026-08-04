@@ -10,6 +10,10 @@ dns.setDefaultResultOrder("ipv4first");
 
 const connectDb = async () => {
     try {
+        if (!process.env.MONGODB_URL) {
+            console.log("WARNING: MONGODB_URL environment variable is missing.");
+            return;
+        }
         await mongoose.connect(process.env.MONGODB_URL)
         console.log("DataBase Connected")
     } catch (error) {
