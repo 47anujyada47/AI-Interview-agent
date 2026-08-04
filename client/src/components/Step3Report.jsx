@@ -172,7 +172,7 @@ function Step3Report({ report }) {
 };
 
   return (
-    <div className='min-h-screen bg-linear-to-br from-gray-50 to-green-50 px-4 sm:px-6 lg:px-10 py-8'>
+    <div className='min-h-screen bg-gradient-to-br from-gray-50 to-green-50 px-4 sm:px-6 lg:px-10 py-8'>
       <div className='mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
         <div className='md:mb-10 w-full flex items-start gap-4 flex-wrap'>
           <button

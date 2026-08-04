@@ -7,7 +7,7 @@ import {
     FaMicrophoneAlt,
     FaChartLine,
 } from "react-icons/fa";
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import axios from "axios"
 import { ServerUrl } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ import { setUserData } from '../redux/userSlice';
 function Step1SetUp({ onStart }) {
     const {userData}= useSelector((state)=>state.user)
     const dispatch = useDispatch()
+    const fileInputRef = useRef(null);
     const [role, setRole] = useState("");
     const [experience, setExperience] = useState("");
     const [mode, setMode] = useState("Technical");
@@ -176,14 +177,14 @@ function Step1SetUp({ onStart }) {
                         {!analysisDone && (
                             <motion.div
                                 whileHover={{ scale: 1.02 }}
-                                onClick={() => document.getElementById("resumeUpload").click()}
+                                onClick={() => fileInputRef.current?.click()}
                                 className='border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition'>
 
                                 <FaFileUpload className='text-4xl mx-auto text-green-600 mb-3' />
 
                                 <input type="file"
                                     accept="application/pdf"
-                                    id="resumeUpload"
+                                    ref={fileInputRef}
                                     className='hidden'
                                     onChange={(e) => setResumeFile(e.target.files[0])} />
 
@@ -255,7 +256,7 @@ function Step1SetUp({ onStart }) {
                             whileHover={{ scale: 1.03 }}
                             whileTap={{ scale: 0.95 }}
                             className='w-full disabled:bg-gray-600 bg-green-600 hover:bg-green-700 text-white py-3 rounded-full text-lg font-semibold transition duration-300 shadow-md'>
-                            {loading ? "Staring...":"Start Interview"}
+                            {loading ? "Starting..." : "Start Interview"}
 
 
                         </motion.button>

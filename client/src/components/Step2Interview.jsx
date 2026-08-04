@@ -114,11 +114,11 @@ function Step2Interview({ interviewData, onFinish }) {
 
 
       utterance.onend = () => {
-        videoRef.current?.pause();
-        videoRef.current.currentTime = 0;
+        if (videoRef.current) {
+          videoRef.current.pause();
+          videoRef.current.currentTime = 0;
+        }
         setIsAIPlaying(false);
-
-
 
         if (isMicOn) {
           startMic();
@@ -203,9 +203,10 @@ function Step2Interview({ interviewData, onFinish }) {
 
 
   useEffect(() => {
-    if (!("webkitSpeechRecognition" in window)) return;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
 
-    const recognition = new window.webkitSpeechRecognition();
+    const recognition = new SpeechRecognition();
     recognition.lang = "en-US";
     recognition.continuous = true;
     recognition.interimResults = false;
@@ -328,7 +329,7 @@ setIsSubmitting(false)
 
 
   return (
-    <div className='min-h-screen bg-linear-to-br from-emerald-50 via-white to-teal-100 flex items-center justify-center p-4 sm:p-6'>
+    <div className='min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-100 flex items-center justify-center p-4 sm:p-6'>
       <div className='w-full max-w-350 min-h-[80vh] bg-white rounded-3xl shadow-2xl border border-gray-200 flex flex-col lg:flex-row overflow-hidden'>
 
         {/* video section */}
